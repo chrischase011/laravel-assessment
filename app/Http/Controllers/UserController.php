@@ -17,4 +17,29 @@ class UserController extends Controller
             'data' => UserResource::collection($active)->resolve()
         ]);
     }
+
+
+    // N + 1 query
+    public function getPost1()
+    {
+        $users = User::all();
+
+        foreach ($users as $user) {
+
+            echo $user->posts->count() . '<br>';
+
+        }
+    }
+
+    // Optimized query using Eager Loading
+    public function getPost2()
+    {
+        $users = User::with('posts')->get();
+
+        foreach ($users as $user) {
+
+            echo $user->posts->count() . '<br>';
+
+        }
+    }
 }

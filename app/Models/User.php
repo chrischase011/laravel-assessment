@@ -54,4 +54,10 @@ class User extends Authenticatable
     {
         return $query->where('status', 'active');
     }
+
+    // Post relationship
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
